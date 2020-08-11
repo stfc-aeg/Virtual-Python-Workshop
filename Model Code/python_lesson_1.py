@@ -1,7 +1,7 @@
-"""Model code for lesson one of the Python workshop.
-This will follow the structure of the workshop,
-each lesson separated by a line of hashtags.
-"""
+# """Model code for lesson one of the Python workshop.
+# This will follow the structure of the workshop,
+# each lesson separated by a line of hashtags.
+# """
 
 ######################################################
 
@@ -206,11 +206,34 @@ while guessesTaken < guessesAllowed:
 
 # Exercise 7 -- Prime Numbers
 
-# A prime number is divisible only by itself and 1. Like 2, 3, 7.
-# We can do this by checking every prime number less than the square root
+# A number is prime if it does not have any factors aside from 1 and itself. For example, 3.
+# This means that one is not a prime number! 1 is its only factor, prime numbers have two factors.
+# So, primes can be found by checking if every number from 2 to number-1 is a factor of number.
+# You can save time by just checking up to the square root of the prime.
+#    --> A composite number must have a factor less than its square root.
 
-# seive generates list up to sqrt of number to be checked --> trial division
-    
+import math  # We'll use this for the square root
+
+print("Let's find a prime number! WARNING: large numbers may take a long time to check.")
+number = int(input("Enter the number to see if it's prime: "))
+
+if number > 1:  # 1 is not a prime
+
+    x = 2  # We won't use a for loop in this code.
+    while x < math.sqrt(number):
+        if number % x == 0:  # 'modulo' (%) checks how many times a number divides into another number
+                          # if modulo is zero, that number is a factor of the other. e.g.: 4 % 2 = 0
+
+            print('\n', number, "is not a prime number.")
+            print(x, "is a factor of", number, ".", x, "times", str(int(number)//int(x)), "is", number)
+            break
+        x += 1
+    else:  # Make sure this else is indented to the same level as the 'for i in range' line!
+           # What happens if it's indented to match the if statement following that line?
+        print(str(number),  "is a prime number!")
+
+else:
+    print("1 is not a prime number.")
 
 
 ########################################################
@@ -221,12 +244,12 @@ while guessesTaken < guessesAllowed:
 print("Hello! Let's play a game of hangman!")
 print("Your guess can either be the entire word, or just one character.")
 
-word = "pneumonoultramicroscopicsilicovolcanoconiosis"  # There are ways to generate a random word, but we don't need that here.
+word = "enigma"  # There are ways to generate a random word, but we don't need that here.
 
 guesses = ""  # We can add to strings, so we'll do that here.
               # You could also use something like a list.
 
-turns_remaining = 10  # You need at least as many turns as unique letters!
+turns_remaining = 10  # You need at least as many turns as unique letters in your word!
 
 # We'll count our turns downwards
 while turns_remaining > 0:  # while we have turns left
@@ -256,7 +279,21 @@ while turns_remaining > 0:  # while we have turns left
             else:
                 word_display += "_"       # otherwise add a blank space
                 failed += 1
-    
+
+        # # Without using FOR loops, there's an alternative using lists and while loops.
+        # # If you want to try this instead, I would add comment out ('#') the loop above
+        # # and remove the comments from this one below.
+        # x = 0
+        # word_display_list = []
+
+        # while x < len(word):
+        #     if word[x] in guesses:  # word[x] is a letter in word. ex: word='string', word[0] = 's'
+        #         word_display_list.append(word[x])  
+        #     else:
+        #         word_display_list.append("_")
+        #         failed += 1
+        #     x += 1  # Increment x for our while loop
+        # print(word_display_list)
 
         print(word_display)
 
@@ -264,16 +301,11 @@ while turns_remaining > 0:  # while we have turns left
             print("You win!")
             break
 
-
         turns_remaining -= 1  # Lose one turn
         print("You have " + str(turns_remaining) + " turns remaining.")
 
         if turns_remaining == 0:  # If we run out of turns
             print("You lose! The word was " + word)
-
-
-
-
 
 
 
