@@ -232,7 +232,7 @@ number = int(input("Enter the number to see if it's prime: "))
 if number > 1:  # 1 is not a prime
 
     x = 2  # We won't use a for loop in this code.
-    while x < math.sqrt(number):
+    while x <= math.sqrt(number):
         if number % x == 0:  # 'modulo' (%) checks how many times a number divides into another number
                           # if modulo is zero, that number is a factor of the other. e.g.: 4 % 2 = 0
 
@@ -240,7 +240,7 @@ if number > 1:  # 1 is not a prime
             print(x, "is a factor of", number, ".", x, "times", str(int(number)//int(x)), "is", number)
             break
         x += 1
-    else:  # Make sure this else is indented to the same level as the 'for i in range' line!
+    else:  # Make sure this else is indented to the same level as the 'while x <=' line!
            # What happens if it's indented to match the if statement following that line?
         print(str(number),  "is a prime number!")
 
