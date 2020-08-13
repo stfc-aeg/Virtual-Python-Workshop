@@ -59,14 +59,14 @@ print(value)
 
 # Exercise 3 -- Roll the dice
 
-sides = int(input("How many sides do you want on the first die? "))
-roll_1 = random.randint(1, sides)
+first_sides = int(input("How many sides do you want on the first die? "))
+roll_1 = random.randint(1, first_sides)
 
-sides = int(input("How many sides do you want on the second die? "))
-roll_2 = random.randint(1, sides)
+second_sides = int(input("How many sides do you want on the second die? "))
+roll_2 = random.randint(1, second_sides)
 
-sides = int(input("How many sides do you want on the third die? "))
-roll_3 = random.randint(1, sides)
+third_sides = int(input("How many sides do you want on the third die? "))
+roll_3 = random.randint(1, third_sides)
 
 roll_total = roll_1 + roll_2 + roll_3
 print("Your rolls were: " + str(roll_1) + "\n" + str(roll_2) + "\n" + str(roll_3))
@@ -85,6 +85,9 @@ print(a + b == b + a)  # True
 print(a - b == b - a)  # False
 print(a * b == b * a)  # True
 print(a / b != b / a)  # True
+
+# Alternatively, print all of them in one statement!
+print(a>b, a<b, a+b == b+a, a-b == b-a, a*b == b*a, a/b != b/a)
 
 ########################################################
 
@@ -151,6 +154,15 @@ def greeting(name):
 greeting("Sophy")
 greeting("Angus")
 greeting("Callum")
+
+# Another example
+
+def double(number):
+    number *= 2  # Double our number
+    return number  # Give back the new doubled number
+
+doubled = double(2)
+print(doubled)
 
 ########################################################
 
@@ -273,29 +285,26 @@ while turns_remaining > 0:  # while we have turns left
     else:  # If the guess isn't the whole word, previously guessed, and is one character, the program continues.
         guesses += guess  # A string with all of our guesses
 
-        for char in word:        # for each character in our word
-            if char in guesses:  # if it's in our string of guesses
-                word_display += char     # add that letter to the incomplete word
+        while x < len(word):
+            if word[x] in guesses:  # word[x] is a letter in word. ex: word='string', word[0] = 's'
+                word_display_list.append(word[x])  
             else:
-                word_display += "_"       # otherwise add a blank space
+                word_display_list.append("_")
                 failed += 1
+            x += 1  # Increment x for our while loop
+        print(word_display_list)
 
-        # # Without using FOR loops, there's an alternative using lists and while loops.
-        # # If you want to try this instead, I would add comment out ('#') the loop above
-        # # and remove the comments from this one below.
-        # x = 0
-        # word_display_list = []
+        # Here's an alternative which uses for loops instead, covered in lesson 2.
+        # This will look neater than the while loop!
+        # Remove and add the # from each loop to see the difference.
 
-        # while x < len(word):
-        #     if word[x] in guesses:  # word[x] is a letter in word. ex: word='string', word[0] = 's'
-        #         word_display_list.append(word[x])  
+        # for char in word:        # for each character in our word
+        #     if char in guesses:  # if it's in our string of guesses
+        #         word_display += char     # add that letter to the incomplete word
         #     else:
-        #         word_display_list.append("_")
+        #         word_display += "_"       # otherwise add a blank space
         #         failed += 1
-        #     x += 1  # Increment x for our while loop
-        # print(word_display_list)
-
-        print(word_display)
+        # print(word_display)
 
         if failed == 0:  # No wrong guesses
             print("You win!")
