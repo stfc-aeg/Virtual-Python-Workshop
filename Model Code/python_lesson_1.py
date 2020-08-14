@@ -231,7 +231,7 @@ number = int(input("Enter the number to see if it's prime: "))
 
 if number > 1:  # 1 is not a prime
 
-    x = 2  # We won't use a for loop in this code.
+    x = 2  # I won't use a for loop in this code, but you could!
     while x <= math.sqrt(number):
         if number % x == 0:  # 'modulo' (%) checks how many times a number divides into another number
                           # if modulo is zero, that number is a factor of the other. e.g.: 4 % 2 = 0
@@ -285,17 +285,18 @@ while turns_remaining > 0:  # while we have turns left
     else:  # If the guess isn't the whole word, previously guessed, and is one character, the program continues.
         guesses += guess  # A string with all of our guesses
 
+        x = 0
         while x < len(word):
             if word[x] in guesses:  # word[x] is a letter in word. ex: word='string', word[0] = 's'
-                word_display_list.append(word[x])  
+                word_display += word[x]
             else:
-                word_display_list.append("_")
+                word_display += "_"
                 failed += 1
             x += 1  # Increment x for our while loop
-        print(word_display_list)
+        print(word_display)
 
         # Here's an alternative which uses for loops instead, covered in lesson 2.
-        # This will look neater than the while loop!
+        # As you can see, it's a little shorter because we don't need to create and iterate x
         # Remove and add the # from each loop to see the difference.
 
         # for char in word:        # for each character in our word

@@ -171,22 +171,28 @@ def rpsls():
     # e.g.: you pick spock, computer picks paper. (2-1)%5 = 1, meaning you lose.
     # e.g.: you pick scissors, computer picks rock. (0-4)%5 = 1, meaning you lose. 
 
-    while player_score < 2 or dragon_score < 2:  # ends when either player reaches 2
+    while (player_score < 2 and dragon_score < 2):  # ends when either player reaches 2
         player_choice = input("What will you go for (rock, paper, scissors, lizard, spock)? ")
         player_number = options[player_choice]
 
-        dragon_number = random.randint(0, 4)
+        dragon_choice = random.choice(list(options))  # To use this random.choice, we need to give it a list or tuple, not dictionary
+            # See an example at https://pynative.com/python-random-choice/, which is where I found this information
+        dragon_number = options[dragon_choice]
 
         difference = (dragon_number - player_number) % 5
-
         if (difference == 1 or difference == 2):
-            print("The dragon wins!")
+            print("The dragon wins with", dragon_choice)
             dragon_score += 1
         elif (difference == 3 or difference == 4):
-            print("You win!")
+            print("You win! The dragon chose", dragon_choice)
             player_score += 1
         else:
-            print("It's a tie!")   
+            print("It's a tie!")
+    
+    if player_score > dragon_score:
+        print("Congratulations. You win... this time.")
+    elif player_score < dragon_score:
+        cinders()
 
 # Noughts and crosses below here!
 def NaC_win(player):
@@ -194,38 +200,41 @@ def NaC_win(player):
         print("Congratulations adventurer... You win... this time.")
     else:
         cinders()
-    sys.exit()
 
-def NaC_check(board, player):  # We will need to pass the variable 'board' as an argument if we want to check it!
+
+def NaC_check(board, player, win):  # We will need to pass the variable 'board' as an argument if we want to check it!
                                # I've given 'player' across too. This is either 'x' or 'o'.
     # This is to check if anyone has won the game noughts and crosses!
     # You win horizontally, vertically or diagonally. This makes eight win conditions.
-
-    for i in range(0, 6, 3):  # Start at 0, stop at 6, step in 3. 1, 4, 7
+    for i in range(0, 6, 3):  # Start at 0, stop at 6, step in 3. positions 1, 4, 7
         if board[i] == player and board[i+1] == player and board[i+2] == player:
             print(player, "wins!")
-            NaC_win(player)
+            win = 1
+            return win, player
 
-    # Downwards
+    # Downwards. i = 0, 1, 2. 
     for i in range(3):
         if board[i] == player and board[i+3] == player and board[i+6] == player:
             print(player, "wins!")
-            NaC_win(player)
+            win = 1
+            return win, player
 
     # Diagonal
     if board[0] == player and board[4] == player and board[8] == player:
         print(player, "wins!")
-        NaC_win(player)
+        win = 1
+
     elif board[2] == player and board[4] == player and board[6] == player:
         print(player, "wins!")
-        NaC_win(player)
+        win = 1
+    return win, player
 
 def noughts_and_crosses():
-    # A quick noughts and crosses game.
-    # You could improve on this a lot using a coordinate system. Avoid all of those if/else if statements!
+    # Just one version of a noughts and crosses game.
+    # You could improve on this a lot using a coordinate system, to avoid all of those if/elif statements!
     # Maybe a neater way to print the board, without all of those [], "" and , everywhere?
     # Give it a go, using this as inspiration!
-    
+    win = 0
     turn = 0
     board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]  # 9 spaces, 3x3 board
     go = 0
@@ -236,7 +245,7 @@ def noughts_and_crosses():
     [7, 8, 9]
     """)
 
-    while True:  # Repeat until broken
+    while win == 0:
         go = 0
         while go != 1:  # repeating turn if go is not set to 1
             move = int(input("Which position would you like to put an x? "))
@@ -249,9 +258,11 @@ def noughts_and_crosses():
                 print("That space has been taken")
 
         print('{} \n{} \n{} \n'.format(board[0:3], board[3:6], board[6:]))
-        NaC_check(board, player)
-        print('hello')
-
+        # You can use .format with the {} to print multiple variables more easily
+        # In this case, the board split into threes. 0-2, 3-5, 6-8.
+        win, player = NaC_check(board, player, win)  # if someone wins, we get back 1 and who won
+        if win == 1:  # If we do not have the check, the loop will finish and set player to 'o', stopping you from ever winning!
+            break
         if turn == 9:
             break
         # Computer's turn. It will pick a random number. 
@@ -268,14 +279,72 @@ def noughts_and_crosses():
                 go = 0  # Not necessary but emphasises that the turn is not over if a valid space is not picked.
 
         print('{} \n {} \n {}'.format(board[0:3], board[3:6], board[6:]))
-        NaC_check(board, player)
+        win, player = NaC_check(board, player, win)
 
-    print("It's a draw!")
+    if win == 1 and player == 'x':
+        print("Congratulations. You win... this time.")
+    elif win == 1 and player == 'o':
+        cinders()
+    else:
+        print("It's a draw!")
+
+def anagrams():
+    # You could make this game by typing the anagrams and if-checking a correct answer
+    # Or using .sorted() to check if the same letters are in both (to avoid lots of if statements)
+    # I'm going to jumble the words myself!
+    print("Can you solve my Python-themed anagrams? \nYou learned about all of these things earlier...")
+    words = ['integers', 'concatenation', 'function', 'while', 'boolean', 'conditional', 'module', 'variable', 'input', 'jupyter', 'python', 'notebook']
+    score = 0
+
+    for i in range(3):  # Repeat three times to win!
+        word = random.choice(words)  #  Using the random module to pick a word for us!
+        words.remove(word)  # We don't want repeat words!
+        correct = word
+        jumbled = ""
+
+        while word:
+            position = random.randrange(len(word))  # Pick a number that is max the no. of characters in word
+            jumbled += word[position]  # Go to the [position]th character in the word.
+            word = word[:position] + word[(position + 1): ]  # Remove the character we just added to jumble
+                # We do this by slicing the string on either side of position
+    
+        print("The anagram is: ", jumbled)
+        guess = input("What was the original word? ")
+        guess = guess.lower()  # All lowercase!
+        if guess == correct:
+            print("Well done...")
+            score += 1
+        else:
+            print("That's not right, sorry.")
+
+    if score < 2:
+        print("Oh dear, adventurer, you didn't get enough correct.")
+        cinders()
+    else:
+        print("You win... this time.")
+
+
 
 
 import random
-print("""Greetings, adventurer...""")
-noughts_and_crosses()
+print("""Greetings, adventurer...
+Choose the challenge of your demise!
+Pick a number between one and six, and see if you can beat me at my games.""")
+game_choice = int(input())
+
+# If selections followed by functions is more than fine for text adventure games!
+if game_choice == 1:
+    write_name_backwards()
+elif game_choice == 2:
+    rpsls()
+elif game_choice == 3:
+    noughts_and_crosses()
+elif game_choice == 4:
+    anagrams()
+elif game_choice == 5 or game_choice == 6:
+    print("Hangman/guess the number have been done elsewhere! You can bring your own code over C: ")
+else:
+    print("I said between one and six... the only games we will play here are MINE!")
 # What do you do to let the adventurer pick where they want to go?
 
 
