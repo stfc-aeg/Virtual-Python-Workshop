@@ -16,6 +16,10 @@ print(total)  # Should be 36
 print(a)  # Proving that variables are remembered by Python
 
 c = 35 / 5  # Increase c by 4
+total = a + b + c + d  # Redefine total
+# Note that, even though d = 10 + c, we already defined d = 13 using c = 3.
+# Variables, once assigned, retain that value until changed. This is not algebra!
+
 print(total)  # Should now be 40
 
 # Or, alternatively...
