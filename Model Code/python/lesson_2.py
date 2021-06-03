@@ -163,6 +163,7 @@ number = int(input("Enter a number to see if it's prime: "))
 if number > 1:  # 1 is not a prime number! It has only one factor, itself.
     rangeLimit = math.ceil(math.sqrt(number))  # Math.ceil rounds up.
 
+    x = 2  # not including 1!
     while x <= rangeLimit:
         if number % x == 0:  # 'modulo' (%) checks how many times a number divides into another number
                           # if modulo is zero, that number is a factor of the other. e.g.: 4 % 2 = 0
