@@ -28,8 +28,10 @@ else:
 
 # Exercise 5 -- Guess the number
 
+import random
+
 print("Let's play a game! 'Guess the number'.")
-print("You have to guess the number, it'll be between 1 and 20.")
+print("You have to guess the number!")
 difficulty = input("What difficulty do you want (pick one: easy,med,hard)? ")
 
 if difficulty == 'easy':
@@ -152,25 +154,32 @@ while guessesTaken < guessesAllowed:
 # You can save time by just checking up to the square root of the prime.
 #    --> A composite number must have a factor less than its square root.
 
-import math  # We'll use this for the square root
+# 437632794689 is a good prime
+import math  # We'll use this for square root and rounding.
 
 print("Let's find a prime number! WARNING: large numbers may take a long time to check.")
-number = int(input("Enter the number to see if it's prime: "))
+number = int(input("Enter a number to see if it's prime: "))
 
-if number > 1:  # 1 is not a prime
+if number > 1:  # 1 is not a prime number! It has only one factor, itself.
+    rangeLimit = math.ceil(math.sqrt(number))  # Math.ceil rounds up.
 
-    x = 2  # I won't use a for loop in this code, but you could!
-    while x <= math.sqrt(number):
+    while x <= rangeLimit:
         if number % x == 0:  # 'modulo' (%) checks how many times a number divides into another number
                           # if modulo is zero, that number is a factor of the other. e.g.: 4 % 2 = 0
+            print("\n" + str(number) + " is not a prime number.")
 
-            print('\n', number, "is not a prime number.")
-            print(x, "is a factor of", number, ".", x, "times", str(int(number)//int(x)), "is", number)
+            numStr = str(number)
+            iterStr = str(x)
+            pairedFactor = str(number//x)
+
+            print(iterStr + " is a factor of " + numStr + ".")
+            print(iterStr + " x " + pairedFactor + " = " + numStr)
+            # An extension would be to get all factors of the number!
             break
         x += 1
-    else:  # Make sure this else is indented to the same level as the 'while x <=' line!
+    else:  # Make sure this else is indented to the same level as the 'loop' line!
            # What happens if it's indented to match the if statement following that line?
-        print(str(number),  "is a prime number!")
+        print(str(number) + " is a prime number!")
 
 else:
     print("1 is not a prime number.")
@@ -223,17 +232,8 @@ while turns_remaining > 0:  # while we have turns left
             x += 1  # Increment x for our while loop
         print(word_display)
 
-        # Here's an alternative which uses for loops instead, covered in lesson 3.
-        # As you can see, it's a little shorter because we don't need to create and iterate x
-        # Remove and add the # from each loop to see the difference.
-
-        # for char in word:        # for each character in our word
-        #     if char in guesses:  # if it's in our string of guesses
-        #         word_display += char     # add that letter to the incomplete word
-        #     else:
-        #         word_display += "_"       # otherwise add a blank space
-        #         failed += 1
-        # print(word_display)
+        # In specific_exercises, you can find a version using a for loop, which is a little neater.
+        # But those are only covered in lesson 3 so I won't use them here.
 
         if missing == 0:  # No missing letters
             print("You win!")
@@ -244,5 +244,3 @@ while turns_remaining > 0:  # while we have turns left
 
         if turns_remaining == 0:  # If we run out of turns
             print("You lose! The word was " + word)
-
-        

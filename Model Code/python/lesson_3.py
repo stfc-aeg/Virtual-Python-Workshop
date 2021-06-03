@@ -28,7 +28,6 @@ def guessQuality(guess, theNumber):
     # e.g.: if abs(distance) <= 2:
     # But this is good practise for using boolean operators
 
-
 print("""This guess the number game uses functions! \n
 You have to guess the number, it'll be between 1 and 20. \n
 Our function will tell you if your guess is hot, warm, or cold. \n
@@ -61,7 +60,6 @@ while guessesTaken < guessesAllowed:
         print("Game over! The number was " + str(theNumber))
         print("Your average guess was " + str(guessTotal / guessesTaken))
 
-
 ######################################################
 
 # Exercise 10 -- The list commands
@@ -79,7 +77,6 @@ print(fruityList)
 print(fruityString.upper())
 print(fruityString.lower())
 print(fruityString.split(" "))
-
 
 ######################################################
 
@@ -127,8 +124,11 @@ print(productInfo)
 sortedByPrice = {}
 uniquePrices = set(fruityPrices)  
 # You could do this by iterating over the fruityPrices and removing prices you've seen before, but a set is faster!
-# That might look like this:        (// = line break, -> = indent)
-# uniquePrices = [] // for price in fruityPrices: // -> if price not in uniquePrices // -> -> uniquePrices.append(price)
+# That might look like this:
+# uniquePrices = [] 
+# for price in fruityPrices: 
+#     if price not in uniquePrices:
+#         uniquePrices.append(price)
 
 for price in uniquePrices:  # for all our unique prices
     byPrice = []

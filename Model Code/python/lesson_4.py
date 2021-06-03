@@ -52,7 +52,6 @@ def backwards_names(scores):
             scores = gameLost(scores)
             return scores
 
-
 def rpsls(scores):  # rockPaperScissorsLizardSpock is a little long for a function name!
     options = {'rock':0, 'spock':1, 'paper':2, 'lizard':3, 'scissors':4}
     player_rps_score, dragon_rps_score = 0, 0
@@ -141,7 +140,6 @@ def jumble(scores):  # 'anagrams'
         print("The dragon speaks... \"You win... this time.\"")
         scores = gameWon(scores)
         return scores
-
 
 # The final game I'll make in this model code is noughts and crosses. This one's a big one!
 # We've got to identify wins, make and display the board, get moves... that's a lot.
