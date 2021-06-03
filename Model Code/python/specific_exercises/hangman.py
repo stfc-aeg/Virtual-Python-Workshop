@@ -44,7 +44,6 @@ while turns_remaining > 0:  # while we have turns left
                 word_display += "_"       # otherwise add a blank space
                 missing += 1
     
-
         print(word_display)
 
         if missing == 0:  # No missing letters
