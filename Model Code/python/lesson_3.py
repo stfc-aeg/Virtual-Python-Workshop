@@ -11,7 +11,7 @@ import random  # Remember, this must be done in each unique Python file you want
 
 def guessMathsFunction(guess, guessTotal):
     guessTotal += guess
-    print("The sum of your guesses was:", guessTotal)
+    print("The sum of your guesses so far:", guessTotal)
     return guessTotal
 
 def guessQuality(guess, theNumber):
@@ -54,7 +54,6 @@ while guessesTaken < guessesAllowed:
         print("That's right! Well done!")
         print("Your average guess was " + str(guessTotal / guessesTaken))
         break
-
 
     if guessesTaken == guessesAllowed:
         print("Game over! The number was " + str(theNumber))
