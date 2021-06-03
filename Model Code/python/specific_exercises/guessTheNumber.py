@@ -2,6 +2,12 @@
 # Lesson 3, exercise 9
 import random
 
+def guessMathsFunction(guess, theNumber, guessTotal, distanceTotal):
+    guessTotal += guess
+    distance = abs(theNumber - guess)
+    distanceTotal += distance
+    return guessTotal, distanceTotal
+
 def guessQuality(guess, theNumber):
     distance = guess - theNumber
     # We say 'hot' is within 2, and warm is within 4.
@@ -38,11 +44,13 @@ else:
 
 # No. of allowed guesses. int() is to make sure the number is not a string.
 guessesTaken = 0  # To begin with, no guesses are taken.
-
+guessTotal = 0
+distanceTotal = 0
 theNumber = random.randint(1, upperLimit)  # The number to guess.
 
 while guessesTaken < guessesAllowed:
     guess = int(input("What's your guess? \n"))
+    guessTotal, distanceTotal = guessMathsFunction(guess, theNumber, guessTotal, distanceTotal)  # A running total of guesses
 
     if guess > theNumber:
         print("Too high!")
@@ -52,9 +60,13 @@ while guessesTaken < guessesAllowed:
         guessQuality(guess, theNumber)
     else:
         print("That's right! Well done!")
+        print("Your average guess was " + str(guessTotal / guessesTaken))
+        print("On average, you were", str(int(distanceTotal/guessesTaken)), "away.")
         break
 
     guessesTaken += 1
 
     if guessesTaken == guessesAllowed:
         print("Game over! The number was " + str(theNumber))
+        print("Your average guess was " + str(guessTotal / guessesTaken))
+        print("On average, you were", str(int(distanceTotal/guessesTaken)), "away.")
