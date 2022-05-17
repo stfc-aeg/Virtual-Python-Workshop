@@ -43,17 +43,17 @@ while guessesTaken < guessesAllowed:
     guess = int(input("What's your guess? \n"))
     guessTotal = guessMathsFunction(guess, guessTotal)  # A running total of guesses
     guessesTaken += 1
-    
+
     if guess > theNumber:
         print("Too high!")
-        guessQuality(guess, theNumber)
     elif guess < theNumber:
         print("Too low!")
-        guessQuality(guess, theNumber)
     else:
         print("That's right! Well done!")
         print("Your average guess was " + str(guessTotal / guessesTaken))
         break
+
+    guessQuality(guess, theNumber)
 
     if guessesTaken == guessesAllowed:
         print("Game over! The number was " + str(theNumber))
@@ -118,14 +118,32 @@ for i in range(len(fruityProducts)):
 
 print(productInfo)
 
-# Extension
+# Extension -- two methods
+sortedByPrice = {}
+
+# First method, for each price, check if it exists already in the keys
+# If it does, add the product to that list. If it doesn't, make a list with that product in it.
+for i in range(len(fruityPrices)):
+    price = fruityPrices[i]
+    product = fruityProducts[i]  # More readable if you do it like this
+
+    if price in sortedByPrice.keys():
+        sortedByPrice[price].append(product)
+    else:
+        sortedByPrice[price] = [product]
+
+print("Method one:", sortedByPrice)
+
+# Method two: get unique prices, compare all prices to unique price, find products matching, group
 
 sortedByPrice = {}
-uniquePrices = set(fruityPrices)  
-# You could do this by iterating over the fruityPrices and removing prices you've seen before, but a set is faster!
+
+uniquePrices = set(fruityPrices)
+# You could get uniques by iterating over the fruityPrices and removing prices you've seen before
+# but a set is faster!
 # That might look like this:
-# uniquePrices = [] 
-# for price in fruityPrices: 
+# uniquePrices = []
+# for price in fruityPrices:
 #     if price not in uniquePrices:
 #         uniquePrices.append(price)
 
@@ -137,5 +155,4 @@ for price in uniquePrices:  # for all our unique prices
 
     sortedByPrice[price] = byPrice  # the list is our group of products
 
-print(sortedByPrice)
-# In short: get unique prices, compare all prices to each unique price, find products matching that price and group them
+print("Method two:", sortedByPrice)

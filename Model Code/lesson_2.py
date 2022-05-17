@@ -130,13 +130,13 @@ while guessesTaken < guessesAllowed:
 
     if guess > theNumber:
         print("Too high!")
-        guessQuality(guess, theNumber)
     elif guess < theNumber:
         print("Too low!")
-        guessQuality(guess, theNumber)
     else:
         print("That's right! Well done!")
         break
+
+    guessQuality(guess, theNumber)  # Both too high and too low use this, so it can go after the if
 
     guessesTaken += 1
 
@@ -169,7 +169,7 @@ if number > 1:  # 1 is not a prime number! It has only one factor, itself.
                           # if modulo is zero, that number is a factor of the other. e.g.: 4 % 2 = 0
             print("\n" + str(number) + " is not a prime number.")
 
-            numStr = str(number)
+            numStr = str(number)  # Not strictly necessary code but more readable
             iterStr = str(x)
             pairedFactor = str(number//x)
 
@@ -178,8 +178,9 @@ if number > 1:  # 1 is not a prime number! It has only one factor, itself.
             # An extension would be to get all factors of the number!
             break
         x += 1
-    else:  # Make sure this else is indented to the same level as the 'loop' line!
-           # What happens if it's indented to match the if statement following that line?
+    else:  # This 'else' is part of the while loop! While/else statements are valid in python
+           # This statement will only trigger if the condition of the loop is false.
+           # So when you `break` the loop, it doesn't activate. Here, that's perfect!
         print(str(number) + " is a prime number!")
 
 else:
@@ -201,7 +202,7 @@ guesses = ""  # We can add to strings, so we'll do that here.
 
 turns_remaining = 10  # You need at least as many turns as unique letters in your word!
 
-# We'll count our turns downwards
+# We'll count our turns downwards just for a change of pace
 while turns_remaining > 0:  # while we have turns left
 
     word_display = ''       # An empty string we will use to display our incomplete word
@@ -219,7 +220,7 @@ while turns_remaining > 0:  # while we have turns left
 
     elif guess in guesses:  # To prevent duplicate guesses
         print("You already guessed this letter! So far, you have guessed: " + guesses)
-    
+
     else:  # If the guess isn't the whole word, previously guessed, and is one character, the program continues.
         guesses += guess  # Add guess to the string of guesses
 
