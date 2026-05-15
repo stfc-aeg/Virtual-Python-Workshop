@@ -1,4 +1,4 @@
-# Exercise 8 -- Hangman
+# Exercise 12 -- Hangman
 # To break this down a little bit:
 
 # We want to check every letter of our word and compare it to all of our guesses
@@ -45,6 +45,68 @@ while turns_remaining > 0:  # while we have turns left
                 missing += 1
     
         print(word_display)
+
+        if missing == 0:  # No missing letters
+            print("You win!")
+            break
+
+        turns_remaining -= 1  # Lose one turn
+        print("You have " + str(turns_remaining) + " turns remaining.")
+
+        if turns_remaining == 0:  # If we run out of turns
+            print("You lose! The word was " + word)
+
+
+######### WHILE LOOP VARIANT #########
+
+# This is a variant of the hangman code that uses a while loop instead of a for loop to check each letter
+# It's a bit more complicated, but does the same thing.
+# Previous versions of the workshop had hangman at lesson 2, where for loops hadn't been introduced.
+
+print("Hello! Let's play a game of hangman!")
+print("Your guess can either be the entire word, or just one character.")
+
+word = "enigma"  # There are ways to generate a random word, but we don't need that here.
+
+guesses = ""  # We can add to strings, so we'll do that here.
+              # You could also use something like a list.
+
+turns_remaining = 10  # You need at least as many turns as unique letters in your word!
+
+# We'll count our turns downwards just for a change of pace
+while turns_remaining > 0:  # while we have turns left
+
+    word_display = ''       # An empty string we will use to display our incomplete word
+    missing = 0             # If you haven't guessed a letter, this will increment by 1.
+                            # you win when it's zero (when you've guessed every right letter)
+
+    guess = input("Enter your guess here: ")
+
+    if guess == word:  # You can guess the entire word if you like! But only the entire word.
+        print("You win!")
+        break
+
+    elif len(guess) > 1:  # To make sure you only guess one character
+        print("Your guess must be only one character.")
+
+    elif guess in guesses:  # To prevent duplicate guesses
+        print("You already guessed this letter! So far, you have guessed: " + guesses)
+
+    else:  # If the guess isn't the whole word, previously guessed, and is one character, the program continues.
+        guesses += guess  # Add guess to the string of guesses
+
+        x = 0
+        while x < len(word):
+            if word[x] in guesses:  # word[x] is a letter in word. ex: word='string', word[0] = 's'
+                word_display += word[x]  # Fill with correct letter
+            else:
+                word_display += "_"  # Blank, wrong letters
+                missing += 1
+            x += 1  # Increment x for our while loop
+        print(word_display)
+
+        # In specific_exercises, you can find a version using a for loop, which is a little neater.
+        # But those are only covered in lesson 3 so I won't use them here.
 
         if missing == 0:  # No missing letters
             print("You win!")

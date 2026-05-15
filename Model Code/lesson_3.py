@@ -4,7 +4,7 @@ import random  # Remember, this must be done in each unique Python file you want
 
 ######################################################
 
-# Exercise 9 -- Mathematical function function
+# Exercise 98 -- Mathematical function function
 
 # For my maths function function, I'm going to make an average of the guesses.
 # The mean: add them all together, divide by how many there are.
@@ -61,7 +61,7 @@ while guessesTaken < guessesAllowed:
 
 ######################################################
 
-# Exercise 10 -- The list commands
+# Exercise 9 -- The list commands
 
 fruityList = ['Apple', 'Tangerine', 'Raspberry Pie', 'Orange', 'Apricot']
 fruityString = 'Totally Unrelated Fruits'
@@ -79,7 +79,7 @@ print(fruityString.split(" "))
 
 ######################################################
 
-# Exercise 11 -- For a while
+# Exercise 10 -- For a while
 
 x = 0
 while x < 10:  # While x is less than 10, print x and add 1 to it.
@@ -105,7 +105,7 @@ for i in range(len(colours)):
 
 ######################################################
 
-# Exercise 12 -- Lists and tuples and dictionaries, oh my!
+# Exercise 11 -- Lists and tuples and dictionaries, oh my!
 
 # Normal
 
@@ -156,3 +156,60 @@ for price in uniquePrices:  # for all our unique prices
     sortedByPrice[price] = byPrice  # the list is our group of products
 
 print("Method two:", sortedByPrice)
+
+
+########################################################
+
+# Exercise 12 -- Hangman
+# I'll use underscore notation for my variables this time.
+
+print("Hello! Let's play a game of hangman!")
+print("Your guess can either be the entire word, or just one character.")
+
+word = "mystery"  # There are ways to generate a random word, but we don't need that here.
+
+guesses = ""  # We can add to strings, so we'll do that here.
+              # You could also use something like a list to store guesses.
+
+turns_remaining = 10  # You need at least as many turns as unique letters!
+
+# We'll count our turns down
+while turns_remaining > 0:  # while we have turns left
+
+    word_display = ''       # An empty string we will use to display our incomplete word
+    missing = 0              # If you haven't guessed a letter, this will increment by 1.
+                            # you win when it's zero (when you've guessed every right letter)
+
+    guess = input("Enter your guess here: ")
+
+    if guess == word:  # You can guess the entire word if you like! But only the entire word.
+        print("You win!")
+        break
+
+    elif len(guess) > 1:  # To make sure you only guess one character
+        print("Your guess must be only one character.")
+
+    elif guess in guesses:  # To prevent duplicate guesses
+        print("You already guessed this letter! So far, you have guessed: " + guesses)
+    
+    else:  # If the guess isn't the whole word, previously guessed, and is one character, the program continues.
+        guesses += guess  # Add guess to the string of guesses.
+
+        for char in word:        # for each character in our word
+            if char in guesses:  # if it's in our string of guesses
+                word_display += char     # add that letter to the incomplete word
+            else:
+                word_display += "_"       # otherwise add a blank space
+                missing += 1
+    
+        print(word_display)
+
+        if missing == 0:  # No missing letters
+            print("You win!")
+            break
+
+        turns_remaining -= 1  # Lose one turn
+        print("You have " + str(turns_remaining) + " turns remaining.")
+
+        if turns_remaining == 0:  # If we run out of turns
+            print("You lose! The word was " + word)
